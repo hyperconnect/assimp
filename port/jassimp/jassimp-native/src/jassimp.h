@@ -40,6 +40,14 @@ JNIEXPORT jstring JNICALL Java_jassimp_Jassimp_getErrorString
 JNIEXPORT jobject JNICALL Java_jassimp_Jassimp_aiImportFile
   (JNIEnv *, jclass, jstring, jlong);
 
+/*
+ * Class:     jassimp_Jassimp
+ * Method:    aiImportFromMemory
+ * Signature: ([BJ)Ljassimp/AiScene;
+ */
+JNIEXPORT jobject JNICALL Java_jassimp_Jassimp_aiImportFromMemory
+        (JNIEnv *, jclass, jbyteArray, jlong);
+
 #ifdef __cplusplus
 }
 #endif

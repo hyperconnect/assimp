@@ -94,8 +94,22 @@ public final class Jassimp {
         return aiImportFile(filename, AiPostProcessSteps.toRawValue(
                 postProcessing));
     }
-    
-    
+
+    /**
+     * Imports from memory via assimp.
+     *
+     * @param bytes byte array to load
+     * @param postProcessing post processing flags
+     * @return the loaded scene, or null if an error occurred
+     * @throws IOException if an error occurs
+     */
+    public static AiScene importFromMemory(byte [] bytes,
+                                     Set<AiPostProcessSteps> postProcessing) throws IOException {
+
+        return aiImportFromMemory(bytes, AiPostProcessSteps.toRawValue(
+                postProcessing));
+    }
+
     /**
      * Returns the size of a struct or ptimitive.<p>
      * 
@@ -275,8 +289,20 @@ public final class Jassimp {
      */
     private static native AiScene aiImportFile(String filename, 
             long postProcessing) throws IOException;
-    
-    
+
+
+    /**
+     * The native interface.
+     *
+     * @param bytes bytes array to load
+     * @param postProcessing post processing flags
+     * @return the loaded scene, or null if an error occurred
+     * @throws IOException if an error occurs
+     */
+    private static native AiScene aiImportFromMemory(byte [] bytes,
+                                               long postProcessing) throws IOException;
+
+
     /**
      * The active wrapper provider.
      */
