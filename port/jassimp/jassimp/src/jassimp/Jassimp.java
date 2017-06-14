@@ -40,6 +40,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package jassimp;
 
+import android.os.Build;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.EnumSet;
@@ -327,6 +329,13 @@ public final class Jassimp {
     public static final int NATIVE_LONG_SIZE; 
 
     static {
+        if (Build.VERSION_CODES.KITKAT > Build.VERSION.SDK_INT) {
+            // https://developer.android.com/ndk/guides/cpp-support.html#ic
+            // If your app targets a version of Android earlier than Android 4.3 (Android API level 18),
+            // and you use the shared library variant of a given C++ runtime, you must load the shared
+            // library before any other library that depends on it.
+            System.loadLibrary("assimp");
+        }
         System.loadLibrary("jassimp");
     	NATIVE_AIVEKTORKEY_SIZE = getVKeysize();
     	NATIVE_AIQUATKEY_SIZE = getQKeysize();
