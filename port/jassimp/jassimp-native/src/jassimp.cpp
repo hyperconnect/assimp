@@ -1573,3 +1573,93 @@ end:
 
 	return jScene;
 }
+
+JNIEXPORT jobject JNICALL Java_jassimp_Jassimp_aiImportFromMemory
+		(JNIEnv *env, jclass jClazz, jbyteArray jbytes, jlong postProcess)
+{
+	jobject jScene = NULL;
+
+	unsigned int len = jbytes == NULL ? 0 : (unsigned int) env->GetArrayLength(jbytes);
+	jbyte * bytes = env->GetByteArrayElements(jbytes, 0);
+
+	if (jbytes == NULL || len == 0) {
+		return jScene;
+	}
+
+	/* do import */
+	const aiScene *cScene = aiImportFileFromMemory((const char *) bytes, len, (unsigned int) postProcess, 0);
+
+	if (!cScene)
+	{
+		lprintf("import file returned null\n");
+		goto error;
+	}
+
+	if (!createInstance(env, "jassimp/AiScene", jScene))
+	{
+		goto error;
+	}
+
+	if (!loadMeshes(env, cScene, jScene))
+	{
+		goto error;
+	}
+
+	if (!loadMaterials(env, cScene, jScene))
+	{
+		goto error;
+	}
+
+	if (!loadAnimations(env, cScene, jScene))
+	{
+		goto error;
+	}
+
+	if (!loadLights(env, cScene, jScene))
+	{
+		goto error;
+	}
+
+	if (!loadCameras(env, cScene, jScene))
+	{
+		goto error;
+	}
+
+	if (!loadSceneGraph(env, cScene, jScene))
+	{
+		goto error;
+	}
+
+	/* jump over error handling section */
+	goto end;
+
+	error:
+	{
+		jclass exception = env->FindClass("java/io/IOException");
+
+		if (NULL == exception)
+		{
+			/* thats really a problem because we cannot throw in this case */
+			env->FatalError("could not throw java.io.IOException");
+		}
+
+		env->ThrowNew(exception, aiGetErrorString());
+
+		lprintf("problem detected\n");
+	}
+
+	end:
+	/*
+	 * NOTE: this releases all memory used in the native domain.
+	 * Ensure all data has been passed to java before!
+	 */
+	aiReleaseImport(cScene);
+
+
+	/* free params */
+	env->ReleaseByteArrayElements(jbytes, bytes, 0);
+
+	lprintf("return from native\n");
+
+	return jScene;
+}
