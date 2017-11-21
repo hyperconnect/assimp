@@ -19,8 +19,8 @@ TOOLCHAIN=$XCODE_ROOT_DIR//Developer/Toolchains/XcodeDefault.xctoolchain
 # BUILD_ARCHS_ALL=(armv7 armv7s arm64 i386 x86_64)
 
 BUILD_ARCHS_DEVICE="armv7 arm64"
-BUILD_ARCHS_SIMULATOR="x86_64"
-BUILD_ARCHS_ALL=(armv7 arm64 x86_64)
+BUILD_ARCHS_SIMULATOR="i386 x86_64"
+BUILD_ARCHS_ALL=(armv7 arm64 i386 x86_64)
 
 CPP_DEV_TARGET_LIST=(miphoneos-version-min mios-simulator-version-min)
 CPP_DEV_TARGET=
