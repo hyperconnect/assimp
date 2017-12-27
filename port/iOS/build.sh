@@ -49,7 +49,7 @@ build_arch()
 
     export DEVROOT=$XCODE_ROOT_DIR/Developer/Platforms/$IOS_SDK_DEVICE.platform/Developer
     export SDKROOT=$DEVROOT/SDKs/$IOS_SDK_DEVICE$IOS_SDK_VERSION.sdk
-    export CFLAGS="-arch $1 -pipe -no-cpp-precomp -stdlib=$CPP_STD_LIB -isysroot $SDKROOT -$CPP_DEV_TARGET=$IOS_SDK_TARGET -I$SDKROOT/usr/include/ -O2" # -fembed-bitcode
+    export CFLAGS="-arch $1 -pipe -no-cpp-precomp -stdlib=$CPP_STD_LIB -isysroot $SDKROOT -$CPP_DEV_TARGET=$IOS_SDK_TARGET -I$SDKROOT/usr/include/ -O3 -DNDEBUG" # -fembed-bitcode
     export LDFLAGS="-L$SDKROOT/usr/lib/ -s -w"
     export CPPFLAGS=$CFLAGS
     export CXXFLAGS="$CFLAGS -std=$CPP_STD"
@@ -57,7 +57,7 @@ build_arch()
     rm CMakeCache.txt
     rm -r CMakeFiles
     
-    cmake  -G 'Unix Makefiles' -DCMAKE_TOOLCHAIN_FILE=./port/iOS/IPHONEOS_$(echo $1 | tr '[:lower:]' '[:upper:]')_TOOLCHAIN.cmake -DASSIMP_BUILD_FBX_IMPORTER=TRUE -DASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT=FALSE -DENABLE_BOOST_WORKAROUND=OFF -DBUILD_SHARED_LIBS=OFF -DASSIMP_BUILD_TESTS=OFF -DASSIMP_BUILD_ASSIMP_TOOLS=OFF -DASSIMP_NO_EXPORT=ON
+    cmake  -G 'Unix Makefiles' -DCMAKE_TOOLCHAIN_FILE=./port/iOS/IPHONEOS_$(echo $1 | tr '[:lower:]' '[:upper:]')_TOOLCHAIN.cmake -DASSIMP_BUILD_FBX_IMPORTER=TRUE -DASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT=FALSE -DENABLE_BOOST_WORKAROUND=OFF -DBUILD_SHARED_LIBS=OFF -DASSIMP_BUILD_TESTS=OFF -DASSIMP_BUILD_ASSIMP_TOOLS=OFF -DASSIMP_NO_EXPORT=ON -DCMAKE_BUILD_TYPE=Release
 
     echo "[!] Building $1 library"
 
