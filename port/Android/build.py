@@ -10,8 +10,8 @@ TOOLCHAIN = ANDROID_ROOT_NDK + '/build/cmake/android.toolchain.cmake'
 ARCHS_PROFILE_ALL = [
    ["armeabi-v7a", "android-19", ANDROID_ROOT_NDK + "/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/arm-linux-androideabi/bin/strip"],
    ["arm64-v8a", "android-21", ANDROID_ROOT_NDK + "/toolchains/aarch64-linux-android-4.9/prebuilt/darwin-x86_64/aarch64-linux-android/bin/strip"],
-   ["x86", "android-21", ANDROID_ROOT_NDK + "/toolchains/x86-4.9/prebuilt/darwin-x86_64/i686-linux-android/bin/strip"], 
-   ["x86_64", "android-19", ANDROID_ROOT_NDK + "/toolchains/x86_64-4.9/prebuilt/darwin-x86_64/x86_64-linux-android/bin/strip"]
+   ["x86", "android-19", ANDROID_ROOT_NDK + "/toolchains/x86-4.9/prebuilt/darwin-x86_64/i686-linux-android/bin/strip"],
+   ["x86_64", "android-21", ANDROID_ROOT_NDK + "/toolchains/x86_64-4.9/prebuilt/darwin-x86_64/x86_64-linux-android/bin/strip"]
 ]
 
 def build_arch(archs_profile):
