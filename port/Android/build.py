@@ -34,7 +34,7 @@ def build_arch(archs_profile):
         'export LDLIBS="z";'
         'cmake -DCMAKE_TOOLCHAIN_FILE={} '
             '-DANDROID_NDK="{}" '
-            '-DANDROID_STL="gnustl_static" '
+            '-DANDROID_STL="c++_static" '
             '-DANDROID_NATIVE_API_LEVEL="{}" '
             '-DANDROID_ABI="{}" '
             '-DANDROID_TOOLCHAIN=clang '
